@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>IT Asset Manager</title>
+</head>
+
+<body>
+
+    <h1>IT Asset Manager</h1>
+
+    <table border="1">
+        <tr>
+            <th>Hostname</th>
+            <th>Typ</th>
+            <th>Betriebssystem</th>
+            <th>IP-Adresse</th>
+            <th>Standort</th>
+            <th>Status</th>
+        </tr>
+
+        {% for asset in assets %}
+        <tr>
+            <td>{{ asset.hostname }}</td>
+            <td>{{ asset.type }}</td>
+            <td>{{ asset.os }}</td>
+            <td>{{ asset.ip }}</td>
+            <td>{{ asset.location }}</td>
+            <td>{{ asset.status }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</body>
+</html>
