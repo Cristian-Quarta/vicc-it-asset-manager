@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <title>IT Asset Manager</title>
@@ -9,28 +10,65 @@
 
     <h1>IT Asset Manager</h1>
 
-    <table border="1">
-        <tr>
-            <th>Hostname</th>
-            <th>Typ</th>
-            <th>Betriebssystem</th>
-            <th>IP-Adresse</th>
-            <th>Standort</th>
-            <th>Status</th>
-        </tr>
+    <p>
+        <a href="/add">+ Neues Asset hinzufügen</a>
+    </p>
 
-        {% for asset in assets %}
-        <tr>
-            <td>{{ asset.hostname }}</td>
-            <td>{{ asset.type }}</td>
-            <td>{{ asset.os }}</td>
-            <td>{{ asset.ip }}</td>
-            <td>{{ asset.location }}</td>
-            <td>{{ asset.status }}</td>
-        </tr>
-        {% endfor %}
+    <table border="1">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Hostname</th>
+                <th>Typ</th>
+                <th>Betriebssystem</th>
+                <th>IP-Adresse</th>
+                <th>Standort</th>
+                <th>Status</th>
+                <th>Aktionen</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for asset in assets %}
+
+            <tr>
+                <td>{{ asset.id }}</td>
+                <td>{{ asset.hostname }}</td>
+                <td>{{ asset.type }}</td>
+                <td>{{ asset.os }}</td>
+                <td>{{ asset.ip }}</td>
+                <td>{{ asset.location }}</td>
+                <td>{{ asset.status }}</td>
+
+                <td>
+
+                    <a href="/edit/{{ asset.id }}">
+                        Bearbeiten
+                    </a>
+
+                    <form
+                        action="/delete/{{ asset.id }}"
+                        method="POST"
+                        style="display:inline;"
+                        onsubmit="return confirm('Asset wirklich löschen?');"
+                    >
+                        <button type="submit">
+                            Löschen
+                        </button>
+                    </form>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
 
     </table>
 
 </body>
+
 </html>

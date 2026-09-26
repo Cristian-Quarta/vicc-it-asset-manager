@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Asset bearbeiten</title>
+</head>
+
+<body>
+
+    <h1>Asset bearbeiten</h1>
+
+    <form method="POST">
+
+        <p>
+            <label>Hostname:</label><br>
+            <input
+                type="text"
+                name="hostname"
+                value="{{ asset.hostname }}"
+                required
+            >
+        </p>
+
+        <p>
+            <label>Typ:</label><br>
+
+            <select name="type">
+
+                <option value="Server"
+                    {% if asset.type == "Server" %}selected{% endif %}>
+                    Server
+                </option>
+
+                <option value="Client"
+                    {% if asset.type == "Client" %}selected{% endif %}>
+                    Client
+                </option>
+
+                <option value="Network"
+                    {% if asset.type == "Network" %}selected{% endif %}>
+                    Netzwerkgerät
+                </option>
+
+                <option value="Other"
+                    {% if asset.type == "Other" %}selected{% endif %}>
+                    Andere
+                </option>
+
+            </select>
+
+        </p>
+
+        <p>
+            <label>Betriebssystem:</label><br>
+            <input
+                type="text"
+                name="os"
+                value="{{ asset.os }}"
+            >
+        </p>
+
+        <p>
+            <label>IP-Adresse:</label><br>
+            <input
+                type="text"
+                name="ip"
+                value="{{ asset.ip }}"
+            >
+        </p>
+
+        <p>
+            <label>Standort:</label><br>
+            <input
+                type="text"
+                name="location"
+                value="{{ asset.location }}"
+            >
+        </p>
+
+        <p>
+            <label>Status:</label><br>
+
+            <select name="status">
+
+                <option value="Online"
+                    {% if asset.status == "Online" %}selected{% endif %}>
+                    Online
+                </option>
+
+                <option value="Offline"
+                    {% if asset.status == "Offline" %}selected{% endif %}>
+                    Offline
+                </option>
+
+                <option value="Maintenance"
+                    {% if asset.status == "Maintenance" %}selected{% endif %}>
+                    Wartung
+                </option>
+
+            </select>
+
+        </p>
+
+        <button type="submit">
+            Änderungen speichern
+        </button>
+
+    </form>
+
+    <p>
+        <a href="/">Abbrechen</a>
+    </p>
+
+</body>
+
+</html>

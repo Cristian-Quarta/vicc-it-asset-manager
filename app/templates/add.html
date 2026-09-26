@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Asset hinzufügen</title>
+</head>
+
+<body>
+
+    <h1>Neues Asset hinzufügen</h1>
+
+    <form method="POST">
+
+        <p>
+            <label>Hostname:</label><br>
+            <input type="text" name="hostname" required>
+        </p>
+
+        <p>
+            <label>Typ:</label><br>
+            <select name="type">
+                <option value="Server">Server</option>
+                <option value="Client">Client</option>
+                <option value="Network">Netzwerkgerät</option>
+                <option value="Other">Andere</option>
+            </select>
+        </p>
+
+        <p>
+            <label>Betriebssystem:</label><br>
+            <input type="text" name="os">
+        </p>
+
+        <p>
+            <label>IP-Adresse:</label><br>
+            <input type="text" name="ip">
+        </p>
+
+        <p>
+            <label>Standort:</label><br>
+            <input type="text" name="location">
+        </p>
+
+        <p>
+            <label>Status:</label><br>
+            <select name="status">
+                <option value="Online">Online</option>
+                <option value="Offline">Offline</option>
+                <option value="Maintenance">Wartung</option>
+            </select>
+        </p>
+
+        <button type="submit">
+            Asset speichern
+        </button>
+
+    </form>
+
+    <p>
+        <a href="/">Zurück zum IT Asset Manager</a>
+    </p>
+
+</body>
+
+</html>
