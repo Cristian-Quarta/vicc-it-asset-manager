@@ -1,17 +1,56 @@
+# =============================================================================
+# VICC IT Asset Manager - Git Ignore
+# =============================================================================
+# Definiert lokale, automatisch erzeugte oder sensitive Dateien,
+# die nicht in das Git-Repository übernommen werden sollen.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
 # Python
+# -----------------------------------------------------------------------------
+
+# Lokale Python Virtual Environment.
+# Abhängigkeiten werden stattdessen über requirements.txt dokumentiert.
 .venv/
+
+# Automatisch erzeugte Python Cache- und Bytecode-Dateien.
 __pycache__/
 *.pyc
 
+
+# -----------------------------------------------------------------------------
 # Environment / Secrets
+# -----------------------------------------------------------------------------
+
+# Lokale Umgebungsvariablen können Zugangsdaten und andere
+# sensitive Informationen enthalten und werden deshalb nicht versioniert.
 .env
 
+
+# -----------------------------------------------------------------------------
 # Terraform
+# -----------------------------------------------------------------------------
+
+# Lokal heruntergeladene Terraform Provider und Module.
 terraform/.terraform/
+
+# Terraform State-Dateien enthalten den aktuellen Zustand der Infrastruktur
+# und können sensitive Informationen enthalten.
 terraform/*.tfstate
 terraform/*.tfstate.*
+
+# Terraform Variablendateien können beispielsweise Passwörter enthalten
+# und werden deshalb nicht im Git-Repository gespeichert.
 terraform/*.tfvars
 
-# IDE / OS
+
+# -----------------------------------------------------------------------------
+# Entwicklungsumgebung / Betriebssystem
+# -----------------------------------------------------------------------------
+
+# Lokale Einstellungen von Visual Studio Code.
 .vscode/
+
+# Automatisch erzeugte macOS-Metadatendatei.
 .DS_Store
