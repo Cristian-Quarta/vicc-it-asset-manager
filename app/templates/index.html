@@ -8,12 +8,19 @@
 
 <body>
 
+    <!--
+        Hauptseite des IT Asset Managers.
+        Die Variable "assets" wird von Flask aus der Datenbank geladen
+        und beim Rendern an dieses Template übergeben.
+    -->
     <h1>IT Asset Manager</h1>
 
+    <!-- Navigation zum Formular für die Erfassung eines neuen Assets. -->
     <p>
         <a href="/add">+ Neues Asset hinzufügen</a>
     </p>
 
+    <!-- Tabelle zur Darstellung aller in PostgreSQL gespeicherten Assets. -->
     <table border="1">
 
         <thead>
@@ -31,6 +38,11 @@
 
         <tbody>
 
+            <!--
+                Jinja-Schleife:
+                Für jedes von Flask übergebene Asset wird eine eigene
+                Tabellenzeile erzeugt.
+            -->
             {% for asset in assets %}
 
             <tr>
@@ -44,10 +56,16 @@
 
                 <td>
 
+                    <!-- Öffnet das Bearbeitungsformular des gewählten Assets. -->
                     <a href="/edit/{{ asset.id }}">
                         Bearbeiten
                     </a>
 
+                    <!--
+                        Das Löschen wird bewusst über eine POST-Anfrage
+                        ausgeführt. Vor dem Absenden wird zusätzlich eine
+                        Bestätigung im Browser angezeigt.
+                    -->
                     <form
                         action="/delete/{{ asset.id }}"
                         method="POST"

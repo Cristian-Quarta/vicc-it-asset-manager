@@ -8,10 +8,22 @@
 
 <body>
 
+    <!--
+        Formular zum Bearbeiten eines bestehenden IT-Assets.
+        Das aktuelle Asset wird von Flask an dieses Template übergeben.
+    -->
     <h1>Asset bearbeiten</h1>
 
+    <!--
+        Die geänderten Werte werden per HTTP POST an die aktuelle
+        Edit-Route des Assets zurückgesendet.
+    -->
     <form method="POST">
 
+        <!--
+            Die bestehenden Werte werden über Jinja in die Formularfelder
+            eingesetzt, damit sie direkt bearbeitet werden können.
+        -->
         <p>
             <label>Hostname:</label><br>
             <input
@@ -27,6 +39,10 @@
 
             <select name="type">
 
+                <!--
+                    Jinja prüft den aktuell gespeicherten Asset-Typ und
+                    markiert die entsprechende Option als ausgewählt.
+                -->
                 <option value="Server"
                     {% if asset.type == "Server" %}selected{% endif %}>
                     Server
@@ -51,6 +67,7 @@
 
         </p>
 
+        <!-- Optionale technische Informationen des Assets. -->
         <p>
             <label>Betriebssystem:</label><br>
             <input
@@ -83,6 +100,10 @@
 
             <select name="status">
 
+                <!--
+                    Der aktuell gespeicherte Status wird beim Öffnen
+                    des Formulars automatisch vorausgewählt.
+                -->
                 <option value="Online"
                     {% if asset.status == "Online" %}selected{% endif %}>
                     Online
@@ -102,12 +123,14 @@
 
         </p>
 
+        <!-- Speichert die vorgenommenen Änderungen über die Flask-Route. -->
         <button type="submit">
             Änderungen speichern
         </button>
 
     </form>
 
+    <!-- Abbruch der Bearbeitung und Rückkehr zur Übersicht. -->
     <p>
         <a href="/">Abbrechen</a>
     </p>

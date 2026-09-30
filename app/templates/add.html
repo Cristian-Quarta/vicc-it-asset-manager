@@ -8,15 +8,22 @@
 
 <body>
 
+    <!-- Formular zur Erfassung eines neuen IT-Assets. -->
     <h1>Neues Asset hinzufügen</h1>
 
+    <!--
+        Die Formulardaten werden über HTTP POST an dieselbe Route (/add)
+        gesendet und anschliessend durch Flask verarbeitet.
+    -->
     <form method="POST">
 
+        <!-- Der Hostname ist ein Pflichtfeld. -->
         <p>
             <label>Hostname:</label><br>
             <input type="text" name="hostname" required>
         </p>
 
+        <!-- Auswahl des Asset-Typs. -->
         <p>
             <label>Typ:</label><br>
             <select name="type">
@@ -27,6 +34,7 @@
             </select>
         </p>
 
+        <!-- Optionale technische Informationen zum Asset. -->
         <p>
             <label>Betriebssystem:</label><br>
             <input type="text" name="os">
@@ -42,6 +50,7 @@
             <input type="text" name="location">
         </p>
 
+        <!-- Auswahl des aktuellen Betriebsstatus. -->
         <p>
             <label>Status:</label><br>
             <select name="status">
@@ -51,12 +60,14 @@
             </select>
         </p>
 
+        <!-- Sendet das ausgefüllte Formular an die Flask-Anwendung. -->
         <button type="submit">
             Asset speichern
         </button>
 
     </form>
 
+    <!-- Rückkehr zur Asset-Übersicht ohne einen neuen Eintrag zu erstellen. -->
     <p>
         <a href="/">Zurück zum IT Asset Manager</a>
     </p>
