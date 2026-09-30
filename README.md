@@ -34,7 +34,7 @@ Die Anwendung wird vollständig in Microsoft Azure betrieben.
 ```text
                          Internet
                             │
-                         HTTPS
+                          HTTPS
                             │
                             ▼
                  ┌─────────────────────┐
@@ -47,11 +47,11 @@ Die Anwendung wird vollständig in Microsoft Azure betrieben.
               │                           │
               ▼                           ▼
 ┌────────────────────────┐    ┌─────────────────────────┐
-│ Azure Container        │    │ Azure Database for     │
-│ Registry (ACR)         │    │ PostgreSQL             │
-│                        │    │ Flexible Server        │
-│ Docker Image           │    │                       │
-└────────────────────────┘    │ Datenbank: assetdb    │
+│ Azure Container        │    │ Azure Database for      │
+│ Registry (ACR)         │    │ PostgreSQL              │
+│                        │    │ Flexible Server         │ 
+│ Docker Image           │    │                         │
+└────────────────────────┘    │ Datenbank: assetdb      │
                               └─────────────────────────┘
 ```
 
