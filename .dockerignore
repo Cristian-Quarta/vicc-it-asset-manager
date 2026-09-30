@@ -1,8 +1,29 @@
+# ---------------------------------------------------------------------------
+# VICC IT Asset Manager - Docker Ignore
+# ---------------------------------------------------------------------------
+# Definiert Dateien und Verzeichnisse, die beim Erstellen des
+# Docker-Images nicht in den Build-Kontext aufgenommen werden sollen.
+
+
+# Lokale Python Virtual Environment.
+# Die benötigten Python-Pakete werden innerhalb des Containers
+# separat über requirements.txt installiert.
 .venv
+
+
+# Git-Repository und Git-Konfiguration werden im Container nicht benötigt.
 .git
 .gitignore
+
+
+# Von Python automatisch erzeugte Cache- und Bytecode-Dateien.
 __pycache__
 *.pyc
 *.pyo
 *.pyd
+
+
+# Lokale Umgebungsvariablen können Zugangsdaten oder andere
+# sensitive Konfigurationswerte enthalten und dürfen deshalb
+# nicht in das Container-Image kopiert werden.
 .env
