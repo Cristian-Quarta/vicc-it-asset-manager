@@ -240,13 +240,40 @@ resource "azurerm_container_app" "vicc" {
 
 
   # ---------------------------------------------------------------------------
-  # Container Template
+  # Container Template und Skalierung
   # ---------------------------------------------------------------------------
 
   template {
     # Definiert die minimale und maximale Anzahl der möglichen Replikas.
+    #
+    # Im Normalbetrieb wird mindestens eine Replica ausgeführt.
+    # Bei erhöhter Last kann Azure Container Apps die Anwendung
+    # automatisch auf maximal zwei Replikas skalieren.
     min_replicas = 1
     max_replicas = 2
+
+    # -------------------------------------------------------------------------
+    # HTTP-basiertes Autoscaling
+    # -------------------------------------------------------------------------
+
+    # Die Skalierungsregel überwacht die Anzahl gleichzeitig aktiver
+    # HTTP-Anfragen pro Replica.
+    #
+    # Wird der definierte Schwellenwert überschritten, kann Azure Container
+    # Apps automatisch eine zusätzliche Replica starten. Sinkt die Last
+    # wieder, kann die Anzahl der Replikas erneut reduziert werden.
+    #
+    # Der niedrige Schwellenwert von fünf gleichzeitigen Anfragen wurde
+    # bewusst für die Entwicklungs- und Testumgebung gewählt, damit das
+    # Skalierungsverhalten mit geringer Last getestet werden kann.
+    http_scale_rule {
+      name                = "http-autoscaling"
+      concurrent_requests = "5"
+    }
+
+    # -------------------------------------------------------------------------
+    # Anwendungscontainer
+    # -------------------------------------------------------------------------
 
     # Konfiguration des eigentlichen Anwendungscontainers.
     container {
@@ -291,6 +318,10 @@ resource "azurerm_container_app" "vicc" {
     }
   }
 
+
+  # ---------------------------------------------------------------------------
+  # Tags
+  # ---------------------------------------------------------------------------
 
   tags = {
     project     = "VICC Praxisarbeit"
