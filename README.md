@@ -17,6 +17,7 @@ Die Webanwendung bietet folgende Funktionen:
 - REST-API unter `/api/assets`
 - Bereitstellung über HTTPS
 - Containerisierte Ausführung mit Docker
+- Automatische horizontale Skalierung über Azure Container Apps
 
 Ein Asset kann unter anderem folgende Informationen enthalten:
 
@@ -49,7 +50,7 @@ Die Anwendung wird vollständig in Microsoft Azure betrieben.
 ┌────────────────────────┐    ┌─────────────────────────┐
 │ Azure Container        │    │ Azure Database for      │
 │ Registry (ACR)         │    │ PostgreSQL              │
-│                        │    │ Flexible Server         │ 
+│                        │    │ Flexible Server         │
 │ Docker Image           │    │                         │
 └────────────────────────┘    │ Datenbank: assetdb      │
                               └─────────────────────────┘
@@ -168,14 +169,23 @@ Die Daten bleiben auch dann erhalten, wenn der Container neu gestartet oder erse
 
 ## Skalierung
 
-Für die Azure Container App ist eine Skalierung zwischen einer und zwei Replikas vorgesehen:
+Für die Azure Container App ist eine automatische horizontale Skalierung zwischen einer und zwei Replikas konfiguriert:
 
 ```hcl
 min_replicas = 1
 max_replicas = 2
+
+http_scale_rule {
+  name                = "http-autoscaling"
+  concurrent_requests = "5"
+}
 ```
 
-Azure Container Apps kann dadurch zusätzliche Instanzen der Anwendung bereitstellen.
+Die HTTP-basierte Skalierungsregel überwacht die Anzahl gleichzeitig aktiver HTTP-Anfragen pro Replica. Wird der konfigurierte Schwellenwert überschritten, kann Azure Container Apps automatisch eine zusätzliche Replica bereitstellen.
+
+Der Schwellenwert von fünf gleichzeitigen Anfragen wurde bewusst niedrig gewählt, damit das Skalierungsverhalten innerhalb der Entwicklungs- und Testumgebung praktisch überprüft werden kann.
+
+Die automatische Skalierung wurde mit parallelen HTTP-Anfragen getestet. Dabei skalierte die Anwendung erfolgreich von einer auf zwei Replikas. Nach Ende der Last und Ablauf der Abkühlphase wurde die zusätzliche Replica automatisch wieder entfernt.
 
 ## Funktionstest
 
@@ -190,8 +200,9 @@ Dabei wurden unter anderem folgende Tests durchgeführt:
 - Bearbeiten und Löschen von Assets
 - Abruf der Assets über `/api/assets`
 - Persistente Speicherung in Azure PostgreSQL
+- Test der automatischen Skalierung von einer auf zwei Replikas und anschliessender Rückskalierung
 
-Damit wurde die vollständige Verbindung zwischen Client, Container App und Datenbank verifiziert.
+Damit wurden die Verbindung zwischen Client, Container App und Datenbank sowie die automatische horizontale Skalierung der Anwendung erfolgreich überprüft.
 
 ## Sicherheit
 
